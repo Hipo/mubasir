@@ -4,11 +4,11 @@ from django.core.validators import RegexValidator
 
 from hipo_django_core.models import AbstractBaseModel
 
-alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
+alphanumeric_validator = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
 
 
 class Queue(AbstractBaseModel):
-    name = models.CharField(max_length=32, validators=[alphanumeric])
+    name = models.CharField(max_length=32, validators=[alphanumeric_validator])
     items = JSONField()
 
     channel = models.ForeignKey("slack.SlackChannel", related_name="queues", on_delete=models.CASCADE)

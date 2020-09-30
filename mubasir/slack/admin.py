@@ -6,6 +6,7 @@ from mubasir.slack.models import SlackWorkspace, SlackChannel
 class SlackWorkspaceAdmin(admin.ModelAdmin):
     pass
 
+
 class SlackChannelAdmin(admin.ModelAdmin):
     pass
 
