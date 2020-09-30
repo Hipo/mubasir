@@ -130,3 +130,6 @@ dmypy.json
 .DS_Store
 .data
 .idea/
+
+# Secrets
+/mubasir/settings/secrets.py
