@@ -17,3 +17,31 @@ class Queue(AbstractBaseModel):
 
     def __str__(self):
         return f"{self.name}"
+
+    def get_queue_members_names_in_order(self):
+        return [member["name"] for member in self.items]
+
+    def get_items_as_markdown_attachment(self):
+        member_names = self.get_queue_members_names_in_order()
+        member_names[0] = '• ' + member_names[0] + ' (Next)'
+        return [
+            {
+                "color": "#32a852",
+                "blocks": [
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": f"*{self.name} Queue:*"
+                        }
+                    },
+                    {
+                        "type": "section",
+                        "text": {
+                            "type": "mrkdwn",
+                            "text": '\n • '.join(member_names)
+                        }
+                    }
+                ]
+            }
+        ]

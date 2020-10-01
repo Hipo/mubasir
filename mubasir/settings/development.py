@@ -10,6 +10,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '9e7706c6.ngrok.io',
+    'd3664670643f.ngrok.io',
 ]
 
 INSTALLED_APPS = INSTALLED_APPS + [
