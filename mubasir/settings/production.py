@@ -21,7 +21,7 @@ DATABASES = {
         'NAME': "mubasir",
         'USER': "mubasir",
         'PASSWORD': secrets.POSTGRES_PASSWORD,
-        'HOST': "hackdb.cmq91upkqjfq.us-east-1.rds.amazonaws.com",
+        'HOST': "postgres",
         'PORT': '5433',
     }
 }
