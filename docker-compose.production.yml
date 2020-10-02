@@ -4,12 +4,28 @@ services:
 
   mubasir:
     user: ${CONTAINER_UID}:${CONTAINER_GID}
+    ports:
+    - "8001:8001"
     environment:
       - DJANGO_SETTINGS_MODULE=mubasir.settings.production
     command: gunicorn --config /mubasir/conf/gunicorn.conf.py mubasir.wsgi
 
-  notification_sender:
-    user: ${CONTAINER_UID}:${CONTAINER_GID}
+  postgres:
+    image: postgres:13.0
     environment:
-    - DJANGO_SETTINGS_MODULE=mubasir.settings.production
-    command: python manage.py send_notifications
+      - POSTGRES_DB=mubasir
+      - POSTGRES_USER=mubasir
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - ".data/db:/var/lib/postgresql/data"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready --quiet || exit 1"]
+      interval: 1m
+      timeout: 30s
+      retries: 10
+      start_period: 40s
+
+    container_name: mubasir_postgres
+    restart: unless-stopped
