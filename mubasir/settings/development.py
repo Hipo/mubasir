@@ -20,11 +20,11 @@ INSTALLED_APPS = INSTALLED_APPS + [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "mubasir",
         'USER': "mubasir",
         'PASSWORD': "password",
         'HOST': "postgres",
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }

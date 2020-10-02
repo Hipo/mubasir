@@ -17,12 +17,12 @@ ALLOWED_HOSTS = [
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': "mubasir",
         'USER': "mubasir",
         'PASSWORD': secrets.POSTGRES_PASSWORD,
         'HOST': "hackdb.cmq91upkqjfq.us-east-1.rds.amazonaws.com",
-        'PORT': '5432',
+        'PORT': '5433',
     }
 }
 
