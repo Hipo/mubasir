@@ -17,7 +17,9 @@ services:
       - POSTGRES_USER=mubasir
       - POSTGRES_PASSWORD=password
     ports:
-      - "5433:5432"
+      - "5433:5433"
+    expose:
+      - "5433"
     volumes:
       - ".data/db:/var/lib/postgresql/data"
     healthcheck:
@@ -26,6 +28,7 @@ services:
       timeout: 30s
       retries: 10
       start_period: 40s
+    command: -p 5433
 
     container_name: mubasir_postgres
     restart: unless-stopped
