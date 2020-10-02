@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     'mubasir.users',
     'mubasir.slack',
+    'mubasir.queues',
 ]
 
 MIDDLEWARE = [

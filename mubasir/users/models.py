@@ -1,13 +1,9 @@
-import google.oauth2.credentials
-import google_auth_oauthlib.flow
-
 from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.postgres.fields import JSONField
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from googleapiclient.discovery import build
 from hipo_django_core.models import AbstractBaseModel
 from hipo_django_core.utils import generate_unique_id
 

@@ -142,3 +142,27 @@ class SlackChannel(models.Model):
             filetype="txt",
             title=title
         )
+
+    def get_all_channel_members(self):
+        """
+        Returns all members of the channel.
+        """
+        client = slack.WebClient(token=self.workspace.access_token)
+
+        r = client.conversations_members(
+            channel=self.channel_id,
+        )
+
+        member_ids = r.data["members"]
+        members = []
+
+        for member_id in member_ids:
+            response = client.users_info(user=member_id)
+            members.append(
+                {
+                    "id": response.data["user"]["id"],
+                    "name": response.data["user"]["name"]
+                }
+            )
+
+        return members
