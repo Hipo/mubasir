@@ -1,5 +1,5 @@
 chdir = "mubasir"
-bind = "0.0.0.0:8000"
+bind = "0.0.0.0:8002"
 pid = "/tmp/project-master.pid"
 workers = 2
 timeout = 80
