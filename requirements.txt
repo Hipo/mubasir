@@ -9,7 +9,7 @@ pytz
 flower==0.9.3
 djangorestframework==3.10.3
 requests==2.22.0
-slackclient==2.2.0
+slackclient==2.9.1
 # ask for `hipo-django-core`
 sentry-sdk==0.12.2
 django_storages==1.10.1
