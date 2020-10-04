@@ -9,6 +9,10 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=mubasir.settings.production
     command: gunicorn --config /mubasir/conf/gunicorn.conf.py mubasir.wsgi
+    restart: unless-stopped
+    tty: true
+    depends_on:
+      - postgres
 
   postgres:
     image: postgres:13.0
