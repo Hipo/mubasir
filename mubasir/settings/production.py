@@ -22,14 +22,9 @@ DATABASES = {
         'USER': "mubasir",
         'PASSWORD': secrets.POSTGRES_PASSWORD,
         'HOST': "postgres",
-        'PORT': '5433',
+        'PORT': '5432',
     }
 }
-
-sentry_sdk.init(
-    dsn=secrets.SENTRY_DSN,
-    integrations=[DjangoIntegration()]
-)
 
 # django-storages
 #
