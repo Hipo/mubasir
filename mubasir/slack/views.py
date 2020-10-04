@@ -21,13 +21,15 @@ SLACK_COMMAND_DEQUEUE = 'dequeue'
 SLACK_COMMAND_ENQUEUE = 'enqueue'
 SLACK_COMMAND_INFO = 'info'
 SLACK_COMMAND_QUEUES = 'queues'
+SLACK_COMMAND_QUEUE = 'queue'
 
 ALLOWED_COMMANDS = [
     SLACK_COMMAND_CREATE,
     SLACK_COMMAND_DEQUEUE,
     SLACK_COMMAND_ENQUEUE,
     SLACK_COMMAND_INFO,
-    SLACK_COMMAND_QUEUES
+    SLACK_COMMAND_QUEUES,
+    SLACK_COMMAND_QUEUE
 ]
 
 
@@ -199,6 +201,53 @@ class SlackCommandView(View):
                 {"text": "- */mubasir enqueue <queue_name>* <member_name> (Appends given member to the queue.) \n"},
                 {"text": "- */mubasir queues* (Shows all of the channel queues.) \n"}
             ]
+
+        elif command == SLACK_COMMAND_QUEUES:
+            queues = list(Queue.objects.filter(
+                channel_id=channel.id,
+                channel__workspace__team_id=team_id
+            ))
+
+            queue_names = [queue.name for queue in queues]
+
+            if queues:
+                message = "*Queues in this channel:*"
+                attachments = [
+                    {
+                        "color": "#32a852",
+                        "blocks": [
+                            {
+                                "type": "section",
+                                "text": {
+                                    "type": "mrkdwn",
+                                    "text": '• ' + '\n • '.join(queue_names)
+                                }
+                            }
+                        ]
+                    }
+                ]
+
+            else:
+                return JsonResponse({
+                    'response_type': 'ephemeral',
+                    'text': "There is no queue in this channel."
+                })
+
+        elif command == SLACK_COMMAND_QUEUE:
+            try:
+                queue = Queue.objects.get(
+                    name=arguments[0],
+                    channel_id=channel.id,
+                    channel__workspace__team_id=team_id
+                )
+            except:
+                return JsonResponse({
+                    'response_type': 'ephemeral',
+                    'text': "There is no such a queue with this name in this channel."
+                })
+
+            message = f"List of items of *{queue.name} Queue*"
+            attachments = queue.get_items_as_markdown_attachment()
 
         if message:
             return JsonResponse({
